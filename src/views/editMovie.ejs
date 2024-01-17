@@ -8,7 +8,7 @@
 <body>
     <h1>Formulario de Edición de Película</h1>
 
-    <form action="/movie/<%=pelicula.id%>?_method=PUT" method="POST">
+    <form action="/movies/<%=pelicula.id%>/?_method=PUT" method="POST">
         <label for="title">Título:</label>
         <input type="text" id="title" name="title" value="<%= pelicula.title %>" required>
 
@@ -19,12 +19,10 @@
         <input type="number" id="awards" name="awards" value="<%= pelicula.awards %>" required>
 
         <label for="release_date">Fecha de Estreno:</label>
-        <input type="date" id="release_date" name="release_date" value="<%= pelicula.release_date %>">
+        <input type="datetime-local" id="release_date" name="release_date" value="<%= pelicula.release_date %>">
 
         <label for="length">Duración (minutos):</label>
         <input type="number" id="length" name="length" value="<%= pelicula.length %>">
-
-        <input type="hidden" name="id" value="<%= pelicula.id %>"> <!-- Campo oculto para enviar el ID de la película -->
 
         <button type="submit">Guardar Edición</button>
     </form>
