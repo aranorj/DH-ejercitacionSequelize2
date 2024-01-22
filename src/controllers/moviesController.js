@@ -21,6 +21,13 @@ let moviesController = {
       peliculaService.updateBy(req.params.id, req.body)
       .then(()=>res.redirect(`/movies/${req.params.id}/detail`))
       .catch((e)=> res.send(e))
+    },
+    delete:function(req, res){
+      peliculaService.deleteBy(req.params.id)
+      .then(()=>res.redirect("/movies"))
+      .catch((error)=>{
+        console.log(error)
+        res.send(error.message)})
     }
 }
 

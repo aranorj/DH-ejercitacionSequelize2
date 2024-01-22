@@ -25,6 +25,21 @@ const peliculaService = {
             console.log(error);
             throw new Error("No se pudo modificar la peli")
         }
+    },
+    deleteBy: function (id) {
+        return new Promise((resolve, reject) => {
+            db.Peliculas.destroy({
+                where: {
+                    id: id
+                }
+            })
+            .then((resultado)=>{
+               resolve(resultado)     
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        })
     }
 }
 
