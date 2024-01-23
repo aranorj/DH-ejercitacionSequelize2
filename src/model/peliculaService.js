@@ -11,7 +11,7 @@ const peliculaService = {
     },
     getBy: async function(id){
         try {
-            return await db.Peliculas.findByPk(id);
+            return await db.Peliculas.findByPk(id, {include: [{association: 'actores'}]});
         } catch (error) {
             throw new Error("Error al recuperar la pelicula por ID")
         }
