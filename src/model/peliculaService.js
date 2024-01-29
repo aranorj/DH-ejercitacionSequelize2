@@ -40,6 +40,14 @@ const peliculaService = {
                 reject(error)
             })
         })
+    },
+    create: async function (body) {
+        try {
+            const newMovie = await db.Peliculas.create({...body})
+            return newMovie
+        } catch (error) {
+            return error
+        }
     }
 }
 

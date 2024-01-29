@@ -17,10 +17,13 @@
     <p>AWARDS: <%= movie.awards %> </p>
     <p>LENGTH: <%= movie.length + ' min'%> </p>
     <p>RELEASE DATE: <%= movie.release_date %> </p>
-
+</br>
     <form method="POST" action="/movies/<%= movie.id%>?_method=DELETE" onsubmit="return confirm('¿Estás seguro de que quieres borrar esta película?');">
         <button type="submit">Borrar Película</button>
     </form>
-
+</br>
+<button><a href='/movies'>Listado de Peliculas</a></button>
+</br>
+    <button><a href='/movies/add'>Agregar</a></button>
 </body>
 </html>
