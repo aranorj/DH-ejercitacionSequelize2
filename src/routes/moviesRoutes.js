@@ -3,8 +3,12 @@ const router = express.Router();
 const moviesController = require('../controllers/moviesController');
 
 router.get('/movies', moviesController.list);
+
+// Formulario de carga
 router.get('/movies/add', moviesController.new);
-router.post('/movies/create', moviesController.add);
+router.post('/movies/create', moviesController.create);
+
+
 //router.get('/movies/recommended', moviesController.recomended);
 router.get('/movies/detail/:id', moviesController.getOne);
 

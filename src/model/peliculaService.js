@@ -2,24 +2,30 @@ const db = require('./database/models')
 
 
 const peliculaService = {
-    getAll: async function(){
-        try {            
+    getAll: async function () {
+        try {
             return await db.Peliculas.findAll()
         } catch (error) {
-           console.log(error);
+            console.log(error);
+            return [];
         }
     },
-    getBy: async function(id){
-        try {
-            return await db.Peliculas.findByPk(id, {include: [{association: 'actores'}]});
-        } catch (error) {
-            throw new Error("Error al recuperar la pelicula por ID")
-        }
+    getBy: async function (id) {
+        return await db.Peliculas.findByPk(id, {
+            include: [{
+                association: 'actores'
+            }]
+        });
+
     },
-    updateBy: async function(id, body){
+    updateBy: async function (id, body) {
         try {
             return await db.Peliculas.update(
-                new Pelicula(body) ,{where: {id: id}}
+                new Pelicula(body), {
+                    where: {
+                        id: id
+                    }
+                }
             )
         } catch (error) {
             console.log(error);
@@ -29,35 +35,43 @@ const peliculaService = {
     deleteBy: function (id) {
         return new Promise((resolve, reject) => {
             db.Peliculas.destroy({
-                where: {
-                    id: id
-                }
-            })
-            .then((resultado)=>{
-               resolve(resultado)     
-            })
-            .catch((error)=>{
-                reject(error)
-            })
+                    where: {
+                        id: id
+                    }
+                })
+                .then((resultado) => {
+                    resolve(resultado)
+                })
+                .catch((error) => {
+                    reject(error)
+                })
         })
     },
-    create: async function (body) {
+    add: async function (body) {
         try {
-            const newMovie = await db.Peliculas.create({...body})
-            return newMovie
+            const pelicula = new Pelicula(body);
+            return await db.Peliculas.create(pelicula);
         } catch (error) {
-            return error
+            console.log(error);
         }
     }
 }
 
 
-function Pelicula({title, rating, awards, release_date, length}){
+function Pelicula({
+    title,
+    rating,
+    awards,
+    release_date,
+    length,
+    genres
+}) {
     this.title = title;
     this.rating = rating;
     this.awards = awards;
     this.release_date = release_date;
     this.length = length;
+    this.genre_id = genres;
 }
 
-module.exports =  peliculaService;
+module.exports = peliculaService;

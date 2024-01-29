@@ -1,5 +1,4 @@
-
-module.exports = (sequelize, DataTypes) =>{
+module.exports = (sequelize, DataTypes) => {
     let alias = 'Peliculas';
     let columns = {
         id: {
@@ -11,7 +10,7 @@ module.exports = (sequelize, DataTypes) =>{
         },
         title: {
             type: DataTypes.STRING,
-            allowNull:false
+            allowNull: false
         },
         rating: {
             type: DataTypes.DECIMAL,
@@ -21,10 +20,13 @@ module.exports = (sequelize, DataTypes) =>{
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        release_date:{
+        release_date: {
             type: DataTypes.DATE
         },
-        length: DataTypes.INTEGER
+        length: DataTypes.INTEGER,
+        genre_id: {
+            type: DataTypes.INTEGER
+        }
     }
     let config = {
         tableName: 'movies',
@@ -32,20 +34,20 @@ module.exports = (sequelize, DataTypes) =>{
     }
 
 
-   let Pelicula = sequelize.define(alias, columns, config);
+    let Pelicula = sequelize.define(alias, columns, config);
 
     Pelicula.associate = (models) => {
         Pelicula.hasMany(models.Actores, {
-            as: "actoresFans",
-            foreignKey: 'favorite_movie_id'
-        }),
+                as: "actoresFans",
+                foreignKey: 'favorite_movie_id'
+            }),
 
-        Pelicula.belongsToMany(models.Actores, {
-            as: 'actores',
-            through: models.Peliculas_Actores,
-            foreignKey: 'movie_id',
-            otherKey: 'actor_id'
-        }), 
+            Pelicula.belongsToMany(models.Actores, {
+                as: 'actores',
+                through: models.Peliculas_Actores,
+                foreignKey: 'movie_id',
+                otherKey: 'actor_id'
+            }),
 
         Pelicula.hasMany(models.Peliculas_Actores, {
             as: 'peliculaActores',
@@ -58,6 +60,6 @@ module.exports = (sequelize, DataTypes) =>{
         })
     } 
 
-   return Pelicula; 
+    return Pelicula;
 
 }

@@ -1,21 +1,23 @@
-const genreService = require('../model/genreService.js')
+const generoService = require("../model/generoService");
 
-module.exports = {
-    list: async function(req,res) {
-        try {
-            const response = await genreService.getAll()
-            console.log(response)
-            res.render('genresList', {genres: response})
-        } catch (error) {
-            res.status(500).json(error.message)
-        }
+const genresController = {
+    list: (req, res) => {
+        generoService.getAll()
+        .then(generos => {
+            res.render('genresList', {
+                genres: generos
+            })
+        })
+        .catch(e => {
+            res.send(`Error inesperado ${e.message}`).status(500);
+        })
     },
-    detail: async function(req,res) {
-        try {
-            const response = await genreService.getBy(req.params.id)
-            res.render('genresDetail', {genre: response})
-        } catch (error) {
-            res.status(500).json(error.message)
-        }
+    detail: (req,res) => {
+        generoService.getBy(req.params.id)
+        .then(genero =>
+            res.send(genero)
+        )
     }
 }
+
+module.exports = genresController;
