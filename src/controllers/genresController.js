@@ -11,6 +11,12 @@ const genresController = {
         .catch(e => {
             res.send(`Error inesperado ${e.message}`).status(500);
         })
+    },
+    detail: (req,res) => {
+        generoService.getBy(req.params.id)
+        .then(genero =>
+            res.send(genero)
+        )
     }
 }
 

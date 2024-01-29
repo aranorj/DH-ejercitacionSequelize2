@@ -1,14 +1,25 @@
-const db = require("./database/models");
+const db = require('./database/models')
 
-const generoService = {
+module.exports = {
     getAll: async function () {
         try {
-            return await db.Generos.findAll();
+            const AllGenres = await db.Generos.findAll({
+                include: [{association: 'peliculas'}]
+            })
+            return AllGenres
         } catch (error) {
-            console.log(error);
-            return [];
+            return error
+        }
+    },
+    getBy: async function (id) {
+        try {
+            const genreDetail = await db.Generos.findOne({
+                where: {id}, 
+                include: [{association: 'peliculas'}], 
+            })
+            return genreDetail
+        } catch (error) {
+            return error
         }
     }
 }
-
-module.exports = generoService;

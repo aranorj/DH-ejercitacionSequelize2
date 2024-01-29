@@ -1,5 +1,5 @@
-const generoService = require('../model/generoService');
 const peliculaService = require('../model/peliculaService');
+const generosService = require('../model/generoService');
 
 
 let moviesController = {
@@ -12,7 +12,7 @@ let moviesController = {
   },
   getOne: function (req, res) {
     peliculaService.getBy(req.params.id)
-      .then((pelicula) => res.send({
+      .then((pelicula) => res.render('moviesDetail',{
         movie: pelicula
       }))
       .catch((e) => res.send(e))
@@ -40,21 +40,11 @@ let moviesController = {
   },
   new: async function (req, res) {
     try {
-      let genres = await generoService.getAll();
+      let genres = await generosService.getAll();
       res.render('createMovie', {genres: genres});
     } catch (error) {
       res.send(error.message);
     }
-
-/*     generoService.getAll()
-      .then(genres => {
-        res.render('createMovie', {
-          genres: genres
-        });
-      })
-      .catch(e => {
-        res.send(e.message);
-      }) */
   },
   create: function (req, res) {
     peliculaService.add(req.body)

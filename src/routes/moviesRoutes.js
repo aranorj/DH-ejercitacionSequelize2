@@ -5,8 +5,8 @@ const moviesController = require('../controllers/moviesController');
 router.get('/movies', moviesController.list);
 
 // Formulario de carga
-router.get('/movies/new', moviesController.new);
-router.post('/movies', moviesController.create);
+router.get('/movies/add', moviesController.new);
+router.post('/movies/create', moviesController.create);
 
 
 //router.get('/movies/recommended', moviesController.recomended);
