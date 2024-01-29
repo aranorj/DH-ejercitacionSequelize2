@@ -12,18 +12,25 @@ let moviesController = {
   },
   getOne: function (req, res) {
     peliculaService.getBy(req.params.id)
-      .then((pelicula) => res.send({
+      .then((pelicula) => res.render('moviesDetail', {
         movie: pelicula
       }))
       .catch((e) => res.send(e))
   },
   edit: function (req, res) {
-    peliculaService.getBy(req.params.id)
-      .then((pelicula) => res.render('editMovie', {
-        pelicula: pelicula,
-        generos: generos
-      }))
-      .catch((e) => res.send(e.message))
+    generoService.getAll()
+    .then(generos => {
+      peliculaService.getBy(req.params.id)
+        .then((pelicula) => res.render('editMovie', {
+          pelicula: pelicula,
+          genres: generos
+        }))
+        .catch((e) => res.send(e.message))
+    })
+    .catch(e => {
+      res.send(e);
+    })
+
   },
   update: function (req, res) {
     peliculaService.updateBy(req.params.id, req.body)

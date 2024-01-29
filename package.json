@@ -1,15 +1,16 @@
 {
-  "name": "myApp",
+  "name": "myapp",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node --watch --env-file .env src/app.js"
+    "start": "nodemon src/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.1",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "method-override": "^3.0.0"
