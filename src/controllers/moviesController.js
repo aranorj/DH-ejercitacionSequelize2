@@ -1,14 +1,19 @@
 const generoService = require('../model/generoService');
 const peliculaService = require('../model/peliculaService');
+const {CreateResponse} = require('./utils/responses')
 
 
 let moviesController = {
-  list: function (req, res) {
-    peliculaService.getAll()
-      .then((peliculas) => res.render('moviesList', {
-        movies: peliculas
-      }))
-      .catch((e) => res.send("Error inesperado").status)
+
+  list: async function (req, res) {
+    try {
+      let peliculas = await peliculaService.getAll()
+      res.json(peliculas).status(200)
+    } catch (error) {
+      console.log(error.message);
+      res.set('Content-Type', 'text/plain')
+      res.send("Error inesperado").status(500)
+    }
   },
   getOne: function (req, res) {
     peliculaService.getBy(req.params.id)
@@ -52,25 +57,14 @@ let moviesController = {
     } catch (error) {
       res.send(error.message);
     }
-
-/*     generoService.getAll()
-      .then(genres => {
-        res.render('createMovie', {
-          genres: genres
-        });
-      })
-      .catch(e => {
-        res.send(e.message);
-      }) */
   },
-  create: function (req, res) {
-    peliculaService.add(req.body)
-      .then(() => {
-        res.redirect('/movies');
-      })
-      .catch(e => {
-        res.send(e.message);
-      })
+  create: async function (req, res) {
+    try {
+      let peliculaNueva = await peliculaService.add(req.body);
+      res.status(201).json(new CreateResponse(peliculaNueva.id, `${req.protocol}://${req.hostname}:3001${req.originalUrl}/${peliculaNueva.id}`))
+    } catch (error) {
+      res.send(e.message).status(500);
+    } 
   }
 }
 
