@@ -61,7 +61,7 @@ let moviesController = {
   create: async function (req, res) {
     try {
       let peliculaNueva = await peliculaService.add(req.body);
-      res.status(201).json(new CreateResponse(peliculaNueva.id, `${req.protocol}://${req.hostname}:3001${req.originalUrl}/${peliculaNueva.id}`))
+      res.status(201).json(new CreateResponse(peliculaNueva.id, `${req.protocol}://${req.get('host')}${req.originalUrl}/${peliculaNueva.id}`))
     } catch (error) {
       res.send(e.message).status(500);
     } 
