@@ -7,8 +7,8 @@ let moviesController = {
 
   list: async function (req, res) {
     try {
-      let peliculas = await peliculaService.getAll()
-      res.json(peliculas).status(200)
+      let peliculas = await peliculaService.getAll(req.query)
+      res.render('moviesList', {movies: peliculas})
     } catch (error) {
       console.log(error.message);
       res.set('Content-Type', 'text/plain')

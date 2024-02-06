@@ -10,10 +10,63 @@ body {
 
 a {
   color: #00B7FF;
+  text-decoration: none;
 }
 img{
   width: 100%;
 }
 figure{
   width: 20%;
+}
+
+nav{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  margin: 5px;
+}
+
+.button {
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  font-size: 16px;
+}
+
+.search {
+  background-color: purple;
+  transition: 500ms;
+}
+
+.search:hover {
+  background-color: plum;
+}
+
+.addMovie {
+  background-color: green;
+  transition: 500ms;
+}
+
+.addMovie:hover {
+  background-color: greenyellow;
+}
+
+.inicio {
+  background-color: #00B7FF;
+  transition: 500ms;
+}
+
+.inicio:hover {
+  background-color: aqua;
+}
+
+form#addMovie {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 10px;
 }

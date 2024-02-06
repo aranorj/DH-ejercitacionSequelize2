@@ -1,10 +1,30 @@
 const db = require('./database/models')
+const {Op} = require('sequelize');
 
 
 const peliculaService = {
-    getAll: async function () {
+    getAll: async function (query) {
         try {
-            return await db.Peliculas.findAll()
+            const { name } = query
+            let condition = {}
+            if (name) condition = {title: {[Op.like]: `%${name}`}};
+
+            let response = await db.Peliculas.findAll({where: condition})
+            if (response.length == 0) {
+                let responseApi = await fetch(`http://www.omdbapi.com/?apikey=d4e35e92&t=${name}`)
+                responseApi = await responseApi.json();
+                const { Title, Released, imdbRating, imdbID, Awards, Runtime} = responseApi
+                return [{
+                    id: imdbID,
+                    title: Title,
+                    rating: imdbRating,
+                    awards: Awards,
+                    release_date: Released,
+                    length: Runtime,
+                }]
+            } else {
+                return response
+            }
         } catch (error) {
             console.log(error);
             return [];
@@ -53,6 +73,17 @@ const peliculaService = {
             return await db.Peliculas.create(pelicula);
         } catch (error) {
             console.log(error);
+        }
+    },
+    FindByName: async function(name) {
+        try {
+            let findMovie = await db.Peliculas.findAll({where: { title: {[Op.iLike]: `%${name}` }}})
+            if (!findMovie) {
+                const apiResponse = await fetch(`http://www.omdbapi.com/?apikey=d4e35e92&t=${name}`)
+                return fetchApi
+            }
+        } catch (error) {
+            
         }
     }
 }

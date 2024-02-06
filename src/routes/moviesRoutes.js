@@ -4,6 +4,7 @@ const moviesController = require('../controllers/moviesController');
 
 // Listado de peliculas
 router.get('/movies', moviesController.list);
+//router.get('/movies/', moviesController.FindByName);
 
 // Detalle de pelicula
 router.get('/movies/detail/:id', moviesController.getOne);

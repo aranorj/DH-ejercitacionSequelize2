@@ -14,6 +14,14 @@
         <img src="/img/logo-DH.png" alt="Logo Digital House">
     </figure>
     <h1>LISTADO DE PELÍCULAS</h1>
+    <nav>
+        <a href="/movies/new" class="button addMovie">Agregar una Pelicula</a>
+        <a href="/movies" class="button inicio">Inicio</a>
+    </nav>
+    <form action="/movies" method="GET">
+        <input type="search" name="name" />
+        <button class="button search">Buscar</button>
+    </form>
     <ul>
         <% for( let i = 0; i < movies.length; i++ ) { %>
         <li>
@@ -22,10 +30,7 @@
         <% } %>
 
     </ul>
-
     <br> <br>
-    <a href="/movies/new"><button>Agregar</button></a>
-
 </body>
 
 </html>
