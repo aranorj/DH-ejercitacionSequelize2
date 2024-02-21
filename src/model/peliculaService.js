@@ -1,6 +1,5 @@
 const db = require('./database/models')
 
-
 const peliculaService = {
     getAll: async function () {
         try {
@@ -16,7 +15,6 @@ const peliculaService = {
                 association: 'actores'
             }]
         });
-
     },
     updateBy: async function (id, body) {
         try {
