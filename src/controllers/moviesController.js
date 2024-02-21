@@ -42,8 +42,8 @@ let moviesController = {
 
   update: function (req, res) {
     peliculaService.updateBy(req.params.id, req.body)
-      .then(() => res.send("Pelicula modificada con exito").status(200))
-      .catch((e) => res.send(e).status(500))
+      .then(() => res.json("Pelicula modificada con exito").status(200))
+      .catch((e) => res.json(e).status(500))
   },
 
   delete: function (req, res) {
