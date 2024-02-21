@@ -11,6 +11,9 @@ const genresRoutes = require('./routes/genresRoutes');
 
 app.use('/', indexRouter);
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 app.use(moviesRoutes);
 app.use(genresRoutes);
 
