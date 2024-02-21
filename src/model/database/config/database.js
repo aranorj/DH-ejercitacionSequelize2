@@ -1,9 +1,9 @@
 
 module.exports = {
   "development": {
-    "username": process.env.DB_USER,
-    "password": process.env.DB_PASS, 
-    "database": process.env.DB_NAME,
+    "username": "root",
+    "password": "root123",
+    "database": "movies_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

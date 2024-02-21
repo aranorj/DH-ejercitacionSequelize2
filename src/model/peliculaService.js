@@ -3,7 +3,7 @@ const db = require('./database/models')
 const peliculaService = {
     getAll: async function () {
         try {
-            return await db.Peliculas.findAll()
+            return await db.Peliculas.findAll({include: "genero" })
         } catch (error) {
             console.log(error);
             return [];

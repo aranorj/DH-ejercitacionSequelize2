@@ -1,6 +1,6 @@
 const generoService = require('../model/generoService');
 const peliculaService = require('../model/peliculaService');
-const {CreateResponse} = require('./utils/responses')
+const { CreateResponse } = require('./utils/responses')
 
 
 let moviesController = {
@@ -12,27 +12,32 @@ let moviesController = {
     } catch (error) {
       console.log(error.message);
       res.set('Content-Type', 'text/plain')
+
+      res.set('Access-Control-Allow-Origin', '*');
+      res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+      res.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+      res.set('Access-Control-Allow-Credentials', true);
       res.send("Error inesperado").status(500)
     }
   },
   getOne: async function (req, res) {
-    try{
+    try {
       let pelicula = await peliculaService.getBy(req.params.id);
       res.json(pelicula)
-    }catch{      
+    } catch {
       console.log(error.message);
       res.set('Content-Type', 'text/plain')
       res.send("Error inesperado").status(500)
     }
   },
-  
+
   create: async function (req, res) {
     try {
       let peliculaNueva = await peliculaService.add(req.body);
       res.status(201).json(new CreateResponse(peliculaNueva.id, `${req.protocol}://${req.get('host')}${req.originalUrl}/${peliculaNueva.id}`))
     } catch (error) {
       res.send(e.message).status(500);
-    } 
+    }
   },
 
   update: function (req, res) {
