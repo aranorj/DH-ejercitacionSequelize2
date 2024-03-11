@@ -3,8 +3,7 @@ const generoService = require("../model/generoService");
 const genresController = {
     list: async function(req, res) {
         try {
-            let generos =  generoService.getAll();
-            res.header('Acces-contro')
+            let generos =  await generoService.getAll();
             res.json(generos);
         } catch (error) {            
             console.log(error.message);
